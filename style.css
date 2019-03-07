@@ -1,0 +1,34 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    margin: 0px;
+}
+#wrapper{
+    width: 100%;
+}
+.menu{
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(159, 220, 255);
+    list-style-type: none;
+}
+.menu-item{
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    width: 100px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.menu-item:hover{
+    background-color: rgb(117, 159, 184);
+}
+.titleBox{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    background-color: rgb(250, 250, 250);
+}
+.title{
+    font-size: 30pt;
+}
