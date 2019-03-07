@@ -12,6 +12,7 @@ body{
     list-style-type: none;
 }
 .menu-item{
+    position: relative;
     display: inline-block;
     text-align: center;
     vertical-align: middle;
@@ -21,6 +22,28 @@ body{
 }
 .menu-item:hover{
     background-color: rgb(117, 159, 184);
+}
+.menu-item-content{
+    display: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    position: absolute;
+    min-width: 160px;
+    z-index: 1;
+    background-color: rgb(159, 220, 255);
+}
+.menu-item-child{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.menu-item-child:hover {
+    background-color: rgb(117, 159, 184);
+}
+.menu-item-content .menu-item-child {
+    display: block;
+}
+.menu-item:hover .menu-item-content{
+    display: block;
 }
 .titleBox{
     display:flex;
