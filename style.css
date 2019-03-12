@@ -14,14 +14,19 @@ footer {
     color: white;
     height: 40px;
 }
+#menu-content {
+    margin: 0 auto;
+    max-width: 1000px;
+    height: 100%;
+}
 #footer-divider {
-    margin-left: 300px;
-    margin-right: 300px;
+    margin:0 auto;
+    max-width: 1000px;
     border-color: #f1f1f1;
 }
 #posts-wrapper {
-    margin-left: 300px;
-    margin-right: 300px;
+    margin:0 auto;
+    max-width: 1000px;
     padding: 40px
 }
 .post-content{
@@ -73,7 +78,7 @@ footer {
     min-width: 160px;
     box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.2);
     z-index: 1;
-    margin-top: -4px;
+    /* margin-top: -4px; */
 }
 
 .dropdown-content a {
