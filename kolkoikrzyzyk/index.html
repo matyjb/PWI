@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./../style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./style.css" />
+    <script src="game.js"></script>
+    <title>X/O</title>
+  </head>
+  <body onload="bodyOnLoad()">
+    <div id="wrapper">
+      <div id="menu">
+        <div id="menu-content">
+          <div class="avatar-wrapper">
+            <a href="/">
+              <img
+                class="avatar"
+                src="./../assets/avatar.jpg"
+                alt="site creator avatar"
+              />
+            </a>
+          </div>
+          <div class="dropdown">
+            <div class="dropdiv">
+              <p class="dropdivp">Lab 1</p>
+            </div>
+            <div class="dropdown-content">
+              <a href="./kolkoikrzyzyk/index.html">X/O</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="dropdiv">
+              <p class="dropdivp">Lab 2</p>
+            </div>
+            <div class="dropdown-content">
+              <a href="#">Link 1</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="dropdiv">
+              <p class="dropdivp">Lab 3</p>
+            </div>
+            <div class="dropdown-content">
+              <a href="#">Link 1</a>
+              <a href="#">Link 2</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <center>
+      <div id="game">
+        <div class="board">
+          <div style="display: table-row">
+              <div class="field nr0" onclick="handleClick(0)"> </div>
+              <div class="field nr1" onclick="handleClick(1)"> </div>
+              <div class="field nr2" onclick="handleClick(2)"> </div>
+          </div>
+          <div style="display: table-row">
+              <div class="field nr3" onclick="handleClick(3)"> </div>
+              <div class="field nr4" onclick="handleClick(4)"> </div>
+              <div class="field nr5" onclick="handleClick(5)"> </div>
+          </div>
+          <div style="display: table-row">
+              <div class="field nr6" onclick="handleClick(6)"> </div>
+              <div class="field nr7" onclick="handleClick(7)"> </div>
+              <div class="field nr8" onclick="handleClick(8)"> </div>
+          </div>
+        </div>
+      </div>
+    </center>
+    <footer>
+      <hr id="footer-divider" />
+      Matyjasiak Bartosz
+    </footer>
+  </body>
+</html>

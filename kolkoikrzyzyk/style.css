@@ -1,0 +1,44 @@
+.field{
+  display: table-cell;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  vertical-align: middle;
+  border: 1px solid black;
+  box-sizing: border-box;
+}
+.board{
+  display: table;
+  background-color: rgb(236, 236, 236);
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+}
+.nr0{
+  border-top: 0;
+  border-left: 0;
+}
+.nr1{
+  border-top: 0;
+}
+.nr2{
+  border-top: 0;
+  border-right: 0;
+}
+.nr3{
+  border-left: 0;
+}
+.nr5{
+  border-right: 0;
+}
+.nr6{
+  border-bottom: 0;
+  border-left: 0;
+}
+.nr7{
+  border-bottom: 0;
+}
+.nr8{
+  border-bottom: 0;
+  border-right: 0;
+}
