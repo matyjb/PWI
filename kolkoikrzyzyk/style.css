@@ -24,6 +24,8 @@
   background-position: center;
   transition: background 0.8s;
   padding: 10px 20px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
 }
 #game-controls button:hover{
   background-color: #0288d1;
@@ -69,6 +71,25 @@
   height: 300px;
   overflow: hidden;
 }
+.whose-turn{
+  border-radius: 5px;
+  background-color: #eeeeee;
+  width: 100%;
+  height: 80px;
+  box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.3);
+  margin: 5px 0px;
+  overflow: hidden;
+}
+.whose-turn .turn{
+  transition: background-color 0.6s, color 0.6s;
+  width: 100%;
+  height: 50%;
+  text-transform: uppercase;
+  text-align: center;
+
+  line-height: 40px;
+}
+
 .nr0{
   border-top: 0;
   border-left: 0;
