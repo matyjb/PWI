@@ -1,3 +1,38 @@
+#game{
+  display: inline-block;
+}
+#game-controls{
+  height: 300px;
+  width: 200px;
+  background-color: #fafafa;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: -4px;
+}
+#game-controls button{
+  border-radius: 5px;
+  border: none;
+  background-color: #039be5;
+  box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.30);
+  width: 140px;
+  height: 40px;
+  margin: 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: white;
+  background-position: center;
+  transition: background 0.8s;
+  padding: 10px 20px;
+}
+#game-controls button:hover{
+  background-color: #0288d1;
+  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+}
+#game-controls button:active{
+  background-color: #6eb9f7;
+  background-size: 100%;
+  transition: background 0s;
+}
 .field{
   display: table-cell;
   text-align: center;
@@ -6,10 +41,21 @@
   vertical-align: middle;
   border: 1px solid black;
   box-sizing: border-box;
+  transition: background-color 0.4s ease-out;
+}
+.field:hover{
+  background-color: #eeeeee;
+  transition: background-color 0.4s ease-in;
+  cursor: pointer;
+}
+.field:active{
+  background-color: #cfcfcf;
+  transition: background-color 0.1s ease-in-out;
+  cursor: pointer;
 }
 .board{
   display: table;
-  background-color: rgb(236, 236, 236);
+  background-color: #fafafa;
   width: 300px;
   height: 300px;
   overflow: hidden;
