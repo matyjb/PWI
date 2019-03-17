@@ -1,5 +1,7 @@
 var player=true;
 var emptyChar=String.fromCharCode(160); //twarda spacja
+var O = "<img src='./../assets/O.png'></img>";
+var X = "<img src='./../assets/X.png'></img>";
 
 function handleClick(id) {
   if(player) handlePlayerMove(id);
@@ -10,7 +12,7 @@ function handleBotMove() {
   if(emptyFields.length>0) {
     id = Math.floor(Math.random() * emptyFields.length);
     if(!player){ //still bots move
-      emptyFields[id].innerText = player ? "O" : "X";
+      emptyFields[id].innerHTML = player ? O : X;
       player=!player;
     }
   }
@@ -18,7 +20,8 @@ function handleBotMove() {
 
 function handlePlayerMove(id) {
   if(document.getElementsByClassName("nr"+id)[0].innerText == emptyChar){
-    document.getElementsByClassName("nr"+id)[0].innerText = player ? "O" : "X";
+    // document.getElementsByClassName("nr"+id)[0].innerText = player ? "O" : "X";
+    document.getElementsByClassName("nr"+id)[0].innerHTML = player ? O : X;
     player = !player;
   }
   if(!player) { //run bot's move
@@ -27,8 +30,8 @@ function handlePlayerMove(id) {
 }
 
 function clearBoard() {
-  Array.from(document.getElementsByClassName("field")).forEach((element,i)=>{
-    element.innerText=emptyChar;
+  Array.from(document.getElementsByClassName("field")).forEach((element)=>{
+    element.innerHTML=emptyChar;
   })
 }
 
