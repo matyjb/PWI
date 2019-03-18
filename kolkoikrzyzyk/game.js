@@ -1,8 +1,9 @@
-var player;
-var emptyChar=String.fromCharCode(160); //twarda spacja
-var O = "<img src='./../assets/O.png'></img>";
-var X = "<img src='./../assets/X.png'></img>";
-var winningArray; //tells how many of symbols has player or bot in rows/colums/ondiagonals
+var player = Boolean;
+const emptyChar=String.fromCharCode(160); //twarda spacja
+const O = "<img src='./../assets/O.png'></img>";
+const X = "<img src='./../assets/X.png'></img>";
+var winningArray = new Array({player: Number, bot: Number}); //tells how many of symbols has player or bot in rows/colums/ondiagonals
+var win = {whoWins: "player" | "bot" | "draw" | null, whereIdWinningArray: Number | null};
 
 function updateWinningArray(lastMoveFieldId,didPlayer) {
   var row = ~~(lastMoveFieldId/3);
@@ -60,18 +61,14 @@ function handleBotMove() {
   if(emptyFields.length>0) {
     id = Math.floor(Math.random() * emptyFields.length);
     if(!player){ //still bots move
-      emptyFields[id].innerHTML = X;
-      playerChange();
-      updateWinningArray(emptyFields[id].dataset.fieldid, false);
+      makeMove(emptyFields[id].dataset.fieldid, false);
     }
   }
 }
 
 function handlePlayerMove(id) {
   if(document.getElementsByClassName("nr"+id)[0].innerText == emptyChar){
-    document.getElementsByClassName("nr"+id)[0].innerHTML = O;
-    playerChange();
-    updateWinningArray(id, true);
+    makeMove(id, true);
   }
 }
 
@@ -81,11 +78,26 @@ function clearBoard() {
   })
 }
 
-// function makeMove(id, isPlayer) {
-//   document.getElementsByClassName("nr"+id)[0].innerHTML = O;
-//   playerChange();
-//   updateWinningArray(id, true);
-// }
+function makeMove(id, isPlayer) {
+  if(!win.whoWins){
+    document.getElementsByClassName("nr"+id)[0].innerHTML = isPlayer ? O : X;
+    playerChange();
+    updateWinningArray(id, isPlayer);
+    isWinOrDraw();
+  }
+}
+
+function isWinOrDraw() {
+  let sum = 0;
+  winningArray.forEach((element,i) => {
+    if(element.player == 3) win = {whoWins: "player", whereIdWinningArray: i}
+    if(element.bot == 3) win = {whoWins: "bot", whereIdWinningArray: i}
+    sum += element.player + element.bot;
+  });
+  if(sum == 21) {
+    win = {whoWins: "draw", whereIdWinningArray: null}
+  }
+}
 
 function resetGame() {
   playerChange(true);
@@ -100,6 +112,7 @@ function resetGame() {
     {player: 0, bot: 0}, //diagonal \
     {player: 0, bot: 0}, //diagonal /
   ];
+  win = {whoWins: null, whereIdWinningArray: null};
 }
 
 function bodyOnLoad() {
