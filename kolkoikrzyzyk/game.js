@@ -57,13 +57,55 @@ function handleClick(id) {
 }
 
 function handleBotMove() {
-  var emptyFields = Array.from(document.getElementsByClassName("field")).filter(element => element.innerText==emptyChar);
-  if(emptyFields.length>0) {
-    id = Math.floor(Math.random() * emptyFields.length);
+  let rankWinningArray = winningArray.map((element,i)=>{
+    let r=0;
+    let p = element.player;
+    let b = element.bot;
+    if(p==0 && b==2) r=6;
+    else if(p==2 && b==0) r=5;
+    else if(p==0 && b==1) r=4;
+    else if(p==0 && b==0) r=3;
+    else if(p==1 && b==0) r=2;
+    else if(p==1 && b==1) r=1;
+    else if(p==1 && b==2) r=0;
+    else if(p==2 && b==1) r=0;
+    return {winningArrayIndex: i, rank: r};
+  }).sort((a,b)=>b.rank-a.rank); //sort numbers descending
+  
+  //pick best
+  let bestRowColDiag = [];
+  rankWinningArray.forEach((element)=>{
+    if(element.rank == rankWinningArray[0].rank) bestRowColDiag.push(element.winningArrayIndex);
+  });
+  let bestMovesFields = Array.from(document.getElementsByClassName("field")).filter(element => element.innerText==emptyChar).filter(element=>{
+    var row = ~~(element.dataset.fieldid/3);
+    var col = element.dataset.fieldid%3;
+    if(bestRowColDiag.includes(row)) return true;
+    if(bestRowColDiag.includes(col+3)) return true;
+    if(row == col) { //diagonal \
+      if(bestRowColDiag.includes(6)) return true;
+    }
+    if(row + col == 2) { //diagonal /
+      if(bestRowColDiag.includes(7)) return true;
+    }
+    return false;
+  });
+  if(bestMovesFields.length>0) {
+    id = Math.floor(Math.random() * bestMovesFields.length);
     if(!player){ //still bots move
-      makeMove(emptyFields[id].dataset.fieldid, false);
+      makeMove(bestMovesFields[id].dataset.fieldid, false);
     }
   }
+  
+
+  //random pick
+  // var emptyFields = Array.from(document.getElementsByClassName("field")).filter(element => element.innerText==emptyChar);
+  // if(emptyFields.length>0) {
+  //   id = Math.floor(Math.random() * emptyFields.length);
+  //   if(!player){ //still bots move
+  //     makeMove(emptyFields[id].dataset.fieldid, false);
+  //   }
+  // }
 }
 
 function handlePlayerMove(id) {
@@ -94,7 +136,7 @@ function isWinOrDraw() {
     if(element.bot == 3) win = {whoWins: "bot", whereIdWinningArray: i}
     sum += element.player + element.bot;
   });
-  if(sum == 21) {
+  if(sum == 24) {
     win = {whoWins: "draw", whereIdWinningArray: null}
   }
 }
