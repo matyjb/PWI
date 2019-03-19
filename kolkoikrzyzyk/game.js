@@ -57,28 +57,29 @@ function handleClick(id) {
 }
 
 function handleBotMove() {
-  let rankWinningArray = winningArray.map((element,i)=>{
-    let r=0;
-    let p = element.player;
-    let b = element.bot;
-    if(p==0 && b==2) r=6;
-    else if(p==2 && b==0) r=5;
-    else if(p==0 && b==1) r=4;
-    else if(p==0 && b==0) r=3;
-    else if(p==1 && b==0) r=2;
-    else if(p==1 && b==1) r=1;
-    else if(p==1 && b==2) r=0;
-    else if(p==2 && b==1) r=0;
-    return {winningArrayIndex: i, rank: r};
-  }).sort((a,b)=>b.rank-a.rank); //sort numbers descending
-  
-  //pick best
-  let bestRowColDiag = [];
-  rankWinningArray.forEach((element)=>{
-    if(element.rank == rankWinningArray[0].rank) bestRowColDiag.push(element.winningArrayIndex);
-  });
-  let bestMovesFields = Array.from(document.getElementsByClassName("field")).filter(element => element.innerText==emptyChar).filter(element=>{
-    var row = ~~(element.dataset.fieldid/3);
+  if(Math.random()<0.97){ //bot cant be perfect
+    //pick best
+    let rankWinningArray = winningArray.map((element,i)=>{
+      let r=0;
+      let p = element.player;
+      let b = element.bot;
+      if(p==0 && b==2) r=6;
+      else if(p==2 && b==0) r=5;
+      else if(p==0 && b==1) r=4;
+      else if(p==0 && b==0) r=3;
+      else if(p==1 && b==0) r=2;
+      else if(p==1 && b==1) r=1;
+      else if(p==1 && b==2) r=0;
+      else if(p==2 && b==1) r=0;
+      return {winningArrayIndex: i, rank: r};
+    }).sort((a,b)=>b.rank-a.rank); //sort numbers descending
+    
+    let bestRowColDiag = [];
+    rankWinningArray.forEach((element)=>{
+      if(element.rank == rankWinningArray[0].rank) bestRowColDiag.push(element.winningArrayIndex);
+    });
+    let bestMovesFields = Array.from(document.getElementsByClassName("field")).filter(element => element.innerText==emptyChar).filter(element=>{
+      var row = ~~(element.dataset.fieldid/3);
     var col = element.dataset.fieldid%3;
     if(bestRowColDiag.includes(row)) return true;
     if(bestRowColDiag.includes(col+3)) return true;
@@ -96,16 +97,17 @@ function handleBotMove() {
       makeMove(bestMovesFields[id].dataset.fieldid, false);
     }
   }
-  
+}else{
 
   //random pick
-  // var emptyFields = Array.from(document.getElementsByClassName("field")).filter(element => element.innerText==emptyChar);
-  // if(emptyFields.length>0) {
-  //   id = Math.floor(Math.random() * emptyFields.length);
-  //   if(!player){ //still bots move
-  //     makeMove(emptyFields[id].dataset.fieldid, false);
-  //   }
-  // }
+  var emptyFields = Array.from(document.getElementsByClassName("field")).filter(element => element.innerText==emptyChar);
+  if(emptyFields.length>0) {
+      id = Math.floor(Math.random() * emptyFields.length);
+      if(!player){ //still bots move
+        makeMove(emptyFields[id].dataset.fieldid, false);
+      }
+    }
+  }
 }
 
 function handlePlayerMove(id) {
@@ -144,7 +146,7 @@ function isWinOrDraw() {
 function resetGame() {
   playerChange(true);
   clearBoard();
-  winningArray = [ //tells how many of symbols has player or bot in rows/colums/ondiagonals
+  winningArray = [ //tells how many symbols has player or bot in rows/colums/ondiagonals
     {player: 0, bot: 0}, //row 0
     {player: 0, bot: 0}, //row 1
     {player: 0, bot: 0}, //row 2
