@@ -209,7 +209,6 @@ function update() {
 
 //starts/resets game
 function start() {
-  // playerChange(true);
   Array.from(fields).forEach(element => {
     element.innerHTML = emptyChar;
   });
