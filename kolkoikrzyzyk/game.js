@@ -1,13 +1,16 @@
-"use strict";
 //game state
 var isPlayerTurn = Boolean;
-var rowColDiagSymbolsCountArray = [{ player: Number, bot: Number }];
-var gameStatus = { whoWins: String, whereIdWinningArray: Number };
+var rowColDiagSymbolsCountArray = new Array({ player: Number, bot: Number });
+var gameStatus = {
+  whoWins: "player" | "bot" | "draw" | null,
+  whereIdWinningArray: Number | null
+};
 
-var O = "<img src='./../assets/O.png'></img>";
-var X = "<img src='./../assets/X.png'></img>";
-var XO = "<img src='./../assets/XO.png'></img>";
-var emptyChar = String.fromCharCode(160); //twarda spacja
+//consts
+const O = "<img src='./../assets/O.png'></img>";
+const X = "<img src='./../assets/X.png'></img>";
+const XO = "<img src='./../assets/XO.png'></img>";
+const emptyChar = String.fromCharCode(160); //twarda spacja
 //elements
 var whoWinsImgWrap;
 var whoWinsTextWrap;
@@ -19,7 +22,7 @@ var turnIndicators;
 var lastChosenFieldId;
 
 function handleClick(fieldId) {
-  if (isPlayerTurn && gameStatus.whoWins === null) {
+  if (isPlayerTurn && gameStatus.whoWins == null) {
     lastChosenFieldId = fieldId;
     update();
   }
@@ -29,32 +32,32 @@ function handleClick(fieldId) {
 function update() {
   //update board
   //place symbol
-  if (lastChosenFieldId !== null) {
-    if (fields[lastChosenFieldId].innerText === emptyChar) {
+  if (lastChosenFieldId != null) {
+    if (fields[lastChosenFieldId].innerText == emptyChar) {
       fields[lastChosenFieldId].innerHTML = isPlayerTurn ? O : X;
       isPlayerTurn = !isPlayerTurn;
       //update rowColDiagSymbolsCountArray
-      var row = ~~(lastChosenFieldId / 3),
-          col = lastChosenFieldId % 3;
+      var row = ~~(lastChosenFieldId / 3);
+      var col = lastChosenFieldId % 3;
       if (!isPlayerTurn) {
         rowColDiagSymbolsCountArray[row].player += 1;
         rowColDiagSymbolsCountArray[col + 3].player += 1;
-        if (row === col) {
+        if (row == col) {
           //diagonal \
           rowColDiagSymbolsCountArray[6].player += 1;
         }
-        if (row + col === 2) {
+        if (row + col == 2) {
           //diagonal /
           rowColDiagSymbolsCountArray[7].player += 1;
         }
       } else {
         rowColDiagSymbolsCountArray[row].bot += 1;
         rowColDiagSymbolsCountArray[col + 3].bot += 1;
-        if (row === col) {
+        if (row == col) {
           //diagonal \
           rowColDiagSymbolsCountArray[6].bot += 1;
         }
-        if (row + col === 2) {
+        if (row + col == 2) {
           //diagonal /
           rowColDiagSymbolsCountArray[7].bot += 1;
         }
@@ -63,7 +66,7 @@ function update() {
     lastChosenFieldId = null; //handled making a move
   }
   //update gameStatus
-  var sum = 0;
+  let sum = 0;
   rowColDiagSymbolsCountArray.forEach((element, i) => {
     if (element.player == 3)
       gameStatus = { whoWins: "player", whereIdWinningArray: i };
@@ -71,7 +74,7 @@ function update() {
       gameStatus = { whoWins: "bot", whereIdWinningArray: i };
     sum += element.player + element.bot;
   });
-  if (sum === 24 && gameStatus.whoWins === null) {
+  if (sum == 24 && gameStatus.whoWins == null) {
     gameStatus = { whoWins: "draw", whereIdWinningArray: null };
   }
 
@@ -89,7 +92,7 @@ function update() {
     }
   });
   //draw red winning line (and block inputs)
-  if (gameStatus.whereIdWinningArray !== null) {
+  if (gameStatus.whereIdWinningArray != null) {
     if (gameStatus.whereIdWinningArray == 6)
       winRedLine.innerHTML =
         "<img class='slash' src='./../assets/winslash.png'></img>";
@@ -128,18 +131,18 @@ function update() {
   }
 
   //bot's turn
-  if (!isPlayerTurn && gameStatus.whoWins === null) {
+  if (!isPlayerTurn && gameStatus.whoWins == null) {
     //run bot's move
     setTimeout(() => {
       if (Math.random() < 0.97) {
         //bot cant be perfect
         //pick best
         //rank importance of placing symbol in rows columns diagonals
-        var ranksRowColDiag = rowColDiagSymbolsCountArray
+        let ranksRowColDiag = rowColDiagSymbolsCountArray
           .map((element, i) => {
-            var rank = 0,
-                p = element.player,
-                b = element.bot,
+            let rank = 0;
+            let p = element.player;
+            let b = element.bot;
 
             if (p == 0 && b == 2) rank = 6;
             else if (p == 2 && b == 0) rank = 5;
@@ -153,18 +156,18 @@ function update() {
           })
           .sort((a, b) => b.rank - a.rank); //sort ranks descending
         //get most important
-        var bestRowColDiag = [];
+        let bestRowColDiag = [];
         ranksRowColDiag.forEach(element => {
           if (element.rank == ranksRowColDiag[0].rank)
             bestRowColDiag.push(element.rowColDiagIndex);
         });
         //find fields that are important to place symbol on it
-        var emptyFields = Array.from(fields).filter(
+        let emptyFields = Array.from(fields).filter(
           element => element.innerText == emptyChar
         );
-        var mostImportantFields = emptyFields.filter(element => {
-          var row = ~~(element.dataset.fieldid / 3), 
-              col = element.dataset.fieldid % 3;
+        let mostImportantFields = emptyFields.filter(element => {
+          let row = ~~(element.dataset.fieldid / 3);
+          let col = element.dataset.fieldid % 3;
           if (bestRowColDiag.includes(row)) return true;
           if (bestRowColDiag.includes(col + 3)) return true;
           if (row == col) {
@@ -188,7 +191,7 @@ function update() {
         }
       } else {
         //random pick
-        var emptyFields = Array.from(fields).filter(
+        let emptyFields = Array.from(fields).filter(
           element => element.innerText == emptyChar
         );
         if (emptyFields.length > 0) {
