@@ -2,6 +2,7 @@ var player = Boolean;
 const emptyChar=String.fromCharCode(160); //twarda spacja
 const O = "<img src='./../assets/O.png'></img>";
 const X = "<img src='./../assets/X.png'></img>";
+const XO = "<img src='./../assets/XO.png'></img>";
 var winningArray = new Array({player: Number, bot: Number}); //tells how many of symbols has player or bot in rows/colums/ondiagonals
 var win = {whoWins: "player" | "bot" | "draw" | null, whereIdWinningArray: Number | null};
 
@@ -119,7 +120,8 @@ function handlePlayerMove(id) {
 function clearBoard() {
   Array.from(document.getElementsByClassName("field")).forEach((element)=>{
     element.innerHTML=emptyChar;
-  })
+  });
+  document.getElementsByClassName("win-slash")[0].style.display = "none";
 }
 
 function makeMove(id, isPlayer) {
@@ -138,8 +140,37 @@ function isWinOrDraw() {
     if(element.bot == 3) win = {whoWins: "bot", whereIdWinningArray: i}
     sum += element.player + element.bot;
   });
-  if(sum == 24) {
+  if(sum == 24 && win.whoWins == null) {
     win = {whoWins: "draw", whereIdWinningArray: null}
+  }
+  drawWinRedSlash();
+}
+
+function drawWinRedSlash() {
+  if(win.whereIdWinningArray != null) {
+    if(win.whereIdWinningArray==6)
+      document.getElementsByClassName("win-slash")[0].innerHTML = "<img class='slash' src='./../assets/winslash.png'></img>";
+    else if(win.whereIdWinningArray==7)
+      document.getElementsByClassName("win-slash")[0].innerHTML = "<img class='slash' style='transform: rotate(90deg)' src='./../assets/winslash.png'></img>";
+    else if(win.whereIdWinningArray<=2)
+      document.getElementsByClassName("win-slash")[0].innerHTML = "<div class='slash' style='background-color: red; height: 20px; margin-top:"+win.whereIdWinningArray*100+"px;' margin-bottom:"+(2-win.whereIdWinningArray)*100+"px;'></div>";
+    else if(win.whereIdWinningArray<=5)
+      document.getElementsByClassName("win-slash")[0].innerHTML = "<div class='slash' style='background-color: red; width: 20px; margin-left:"+(win.whereIdWinningArray-3)*100+"px;' margin-right:"+(5-win.whereIdWinningArray)*100+"px;'></div>";
+    document.getElementsByClassName("win-slash")[0].style.display = "block";
+  }
+  switch (win.whoWins) {
+    case "player":
+      document.getElementsByClassName("who-wins-img-wrap")[0].innerHTML= O;
+      document.getElementsByClassName("who-wins-text-wrap")[0].innerText= "wins!";
+      break;
+    case "bot":
+      document.getElementsByClassName("who-wins-img-wrap")[0].innerHTML= X;
+      document.getElementsByClassName("who-wins-text-wrap")[0].innerText= "wins!";
+      break;
+    case "draw":
+      document.getElementsByClassName("who-wins-img-wrap")[0].innerHTML= XO;
+      document.getElementsByClassName("who-wins-text-wrap")[0].innerText= "it is a draw!";
+      break;
   }
 }
 
@@ -157,6 +188,8 @@ function resetGame() {
     {player: 0, bot: 0}, //diagonal /
   ];
   win = {whoWins: null, whereIdWinningArray: null};
+  document.getElementsByClassName("who-wins-img-wrap")[0].innerHTML= "";
+  document.getElementsByClassName("who-wins-text-wrap")[0].innerText= "";
 }
 
 function bodyOnLoad() {

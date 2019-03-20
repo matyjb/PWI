@@ -70,6 +70,7 @@
   width: 300px;
   height: 300px;
   overflow: hidden;
+  position: relative;
 }
 .whose-turn{
   border-radius: 5px;
@@ -88,6 +89,31 @@
   text-align: center;
 
   line-height: 40px;
+}
+.win-slash{
+  display: none;
+  width: 220px;
+  height: 220px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 40px;
+  
+}
+.win-slash .slash{
+  width: 100%;
+  height: 100%;
+  border-radius: 10px; 
+}
+.who-wins-img-wrap{
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+.who-wins-text-wrap{
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .nr0{
