@@ -29,7 +29,7 @@ function handleClick(fieldId) {
 function update() {
   //update board
     //place symbol
-  if(lastChosenFieldId){
+  if(lastChosenFieldId != null){
     if(fields[lastChosenFieldId].innerText == emptyChar) {
       fields[lastChosenFieldId].innerHTML = isPlayerTurn ? O : X;
       isPlayerTurn = !isPlayerTurn;
