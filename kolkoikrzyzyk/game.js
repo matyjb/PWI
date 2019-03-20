@@ -1,183 +1,189 @@
-var player = Boolean;
-const emptyChar=String.fromCharCode(160); //twarda spacja
+//game state
+var isPlayerTurn = Boolean;
+var rowColDiagSymbolsCountArray = new Array({player: Number, bot: Number});;
+var gameStatus = {whoWins: "player" | "bot" | "draw" | null, whereIdWinningArray: Number | null};
+
+//consts
 const O = "<img src='./../assets/O.png'></img>";
 const X = "<img src='./../assets/X.png'></img>";
 const XO = "<img src='./../assets/XO.png'></img>";
-var winningArray = new Array({player: Number, bot: Number}); //tells how many of symbols has player or bot in rows/colums/ondiagonals
-var win = {whoWins: "player" | "bot" | "draw" | null, whereIdWinningArray: Number | null};
+const emptyChar = String.fromCharCode(160); //twarda spacja
+//elements
+var whoWinsImgWrap;
+var whoWinsTextWrap;
+var fields;
+var winRedLine;
+var turnIndicators;
 
-function updateWinningArray(lastMoveFieldId,didPlayer) {
-  var row = ~~(lastMoveFieldId/3);
-  var col = lastMoveFieldId%3;
-  if(didPlayer){
-    winningArray[row].player += 1;
-    winningArray[col+3].player += 1;
-    if(row == col) { //diagonal \
-      winningArray[6].player += 1;
-    }
-    if(row + col == 2) { //diagonal /
-      winningArray[7].player += 1;
-    }
-  } else {
-    winningArray[row].bot += 1;
-    winningArray[col+3].bot += 1;
-    if(row == col) { //diagonal \
-      winningArray[6].bot += 1;
-    }
-    if(row + col == 2) { //diagonal /
-      winningArray[7].bot += 1;
-    }
+//clicks
+var lastChosenFieldId;
+
+function handleClick(fieldId) {
+  if(isPlayerTurn && gameStatus.whoWins == null){
+    lastChosenFieldId = fieldId;
+    update();
   }
 }
 
-function playerChange(p) {
-  if(p!=undefined){
-    player = p;
-  }else{
-    player=!player;
-  }
-  Array.from(document.getElementsByClassName("turn")).forEach((element)=>{
-    switch (element.dataset.who) {
-      case "player":
-        element.style.backgroundColor = player ? "#039be5" : "inherit";
-        element.style.color = player ? "white" : "black";
-        break;
-      case "bot":
-        element.style.backgroundColor = player ? "inherit" : "#039be5";
-        element.style.color = player ? "black" : "white";
-        break;
-    }
-  });
-  if(!player) { //run bot's move
-    setTimeout(handleBotMove, Math.floor(Math.random() * 2000) + 100);
-  }
-}
-
-function handleClick(id) {
-  if(player) handlePlayerMove(id);
-}
-
-function handleBotMove() {
-  if(Math.random()<0.97){ //bot cant be perfect
-    //pick best
-    let rankWinningArray = winningArray.map((element,i)=>{
-      let r=0;
-      let p = element.player;
-      let b = element.bot;
-      if(p==0 && b==2) r=6;
-      else if(p==2 && b==0) r=5;
-      else if(p==0 && b==1) r=4;
-      else if(p==0 && b==0) r=3;
-      else if(p==1 && b==0) r=2;
-      else if(p==1 && b==1) r=1;
-      else if(p==1 && b==2) r=0;
-      else if(p==2 && b==1) r=0;
-      return {winningArrayIndex: i, rank: r};
-    }).sort((a,b)=>b.rank-a.rank); //sort numbers descending
-    
-    let bestRowColDiag = [];
-    rankWinningArray.forEach((element)=>{
-      if(element.rank == rankWinningArray[0].rank) bestRowColDiag.push(element.winningArrayIndex);
-    });
-    let bestMovesFields = Array.from(document.getElementsByClassName("field")).filter(element => element.innerText==emptyChar).filter(element=>{
-      var row = ~~(element.dataset.fieldid/3);
-    var col = element.dataset.fieldid%3;
-    if(bestRowColDiag.includes(row)) return true;
-    if(bestRowColDiag.includes(col+3)) return true;
-    if(row == col) { //diagonal \
-      if(bestRowColDiag.includes(6)) return true;
-    }
-    if(row + col == 2) { //diagonal /
-      if(bestRowColDiag.includes(7)) return true;
-    }
-    return false;
-  });
-  if(bestMovesFields.length>0) {
-    id = Math.floor(Math.random() * bestMovesFields.length);
-    if(!player){ //still bots move
-      makeMove(bestMovesFields[id].dataset.fieldid, false);
-    }
-  }
-}else{
-
-  //random pick
-  var emptyFields = Array.from(document.getElementsByClassName("field")).filter(element => element.innerText==emptyChar);
-  if(emptyFields.length>0) {
-      id = Math.floor(Math.random() * emptyFields.length);
-      if(!player){ //still bots move
-        makeMove(emptyFields[id].dataset.fieldid, false);
+//updates game
+function update() {
+  //update board
+    //place symbol
+  if(lastChosenFieldId){
+    if(fields[lastChosenFieldId].innerText == emptyChar) {
+      fields[lastChosenFieldId].innerHTML = isPlayerTurn ? O : X;
+      isPlayerTurn = !isPlayerTurn;
+      //update rowColDiagSymbolsCountArray
+      var row = ~~(lastChosenFieldId/3);
+      var col = lastChosenFieldId%3;
+      if(!isPlayerTurn){
+        rowColDiagSymbolsCountArray[row].player += 1;
+        rowColDiagSymbolsCountArray[col+3].player += 1;
+        if(row == col) { //diagonal \
+          rowColDiagSymbolsCountArray[6].player += 1;
+        }
+        if(row + col == 2) { //diagonal /
+          rowColDiagSymbolsCountArray[7].player += 1;
+        }
+      } else {
+        rowColDiagSymbolsCountArray[row].bot += 1;
+        rowColDiagSymbolsCountArray[col+3].bot += 1;
+        if(row == col) { //diagonal \
+          rowColDiagSymbolsCountArray[6].bot += 1;
+        }
+        if(row + col == 2) { //diagonal /
+          rowColDiagSymbolsCountArray[7].bot += 1;
+        }
       }
     }
+    lastChosenFieldId = null; //handled making a move
   }
-}
-
-function handlePlayerMove(id) {
-  if(document.getElementsByClassName("nr"+id)[0].innerText == emptyChar){
-    makeMove(id, true);
-  }
-}
-
-function clearBoard() {
-  Array.from(document.getElementsByClassName("field")).forEach((element)=>{
-    element.innerHTML=emptyChar;
-  });
-  document.getElementsByClassName("win-slash")[0].style.display = "none";
-}
-
-function makeMove(id, isPlayer) {
-  if(!win.whoWins){
-    document.getElementsByClassName("nr"+id)[0].innerHTML = isPlayer ? O : X;
-    playerChange();
-    updateWinningArray(id, isPlayer);
-    isWinOrDraw();
-  }
-}
-
-function isWinOrDraw() {
+  //update gameStatus
   let sum = 0;
-  winningArray.forEach((element,i) => {
-    if(element.player == 3) win = {whoWins: "player", whereIdWinningArray: i}
-    if(element.bot == 3) win = {whoWins: "bot", whereIdWinningArray: i}
+  rowColDiagSymbolsCountArray.forEach((element,i) => {
+    if(element.player == 3) gameStatus = {whoWins: "player", whereIdWinningArray: i}
+    if(element.bot == 3) gameStatus = {whoWins: "bot", whereIdWinningArray: i}
     sum += element.player + element.bot;
   });
-  if(sum == 24 && win.whoWins == null) {
-    win = {whoWins: "draw", whereIdWinningArray: null}
+  if(sum == 24 && gameStatus.whoWins == null) {
+    gameStatus = {whoWins: "draw", whereIdWinningArray: null}
   }
-  drawWinRedSlash();
+
+    //update whose turn indicator
+  Array.from(turnIndicators).forEach((element)=>{
+    switch (element.dataset.who) {
+      case "player":
+        element.style.backgroundColor = isPlayerTurn ? "#039be5" : "inherit";
+        element.style.color = isPlayerTurn ? "white" : "black";
+        break;
+      case "bot":
+        element.style.backgroundColor = isPlayerTurn ? "inherit" : "#039be5";
+        element.style.color = isPlayerTurn ? "black" : "white";
+        break;
+    }
+  });
+    //draw red winning line (and block inputs)
+    if(gameStatus.whereIdWinningArray != null) {
+      if(gameStatus.whereIdWinningArray==6)
+        winRedLine.innerHTML = "<img class='slash' src='./../assets/winslash.png'></img>";
+      else if(gameStatus.whereIdWinningArray==7)
+        winRedLine.innerHTML = "<img class='slash' style='transform: rotate(90deg)' src='./../assets/winslash.png'></img>";
+      else if(gameStatus.whereIdWinningArray<=2)
+        winRedLine.innerHTML = "<div class='slash' style='background-color: red; height: 20px; margin-top:"+gameStatus.whereIdWinningArray*100+"px;' margin-bottom:"+(2-gameStatus.whereIdWinningArray)*100+"px;'></div>";
+      else if(gameStatus.whereIdWinningArray<=5)
+        winRedLine.innerHTML = "<div class='slash' style='background-color: red; width: 20px; margin-left:"+(gameStatus.whereIdWinningArray-3)*100+"px;' margin-right:"+(5-gameStatus.whereIdWinningArray)*100+"px;'></div>";
+      winRedLine.style.display = "block";
+    }
+    switch (gameStatus.whoWins) {
+      case "player":
+        whoWinsImgWrap.innerHTML= O;
+        whoWinsTextWrap.innerText= "wygrywa!";
+        break;
+      case "bot":
+        whoWinsImgWrap.innerHTML= X;
+        whoWinsTextWrap.innerText= "wygrywa!";
+        break;
+      case "draw":
+        whoWinsImgWrap.innerHTML= XO;
+        whoWinsTextWrap.innerText= "remis!";
+        break;
+    }
+
+
+
+  //bot's turn 
+  if(!isPlayerTurn && gameStatus.whoWins == null) { //run bot's move
+    setTimeout(()=>{
+      if(Math.random()<0.97){ //bot cant be perfect
+        //pick best
+        //rank importance of placing symbol in rows columns diagonals
+        let ranksRowColDiag = rowColDiagSymbolsCountArray.map((element,i)=>{
+          let rank = 0;
+          let p = element.player;
+          let b = element.bot;
+
+          if(p==0 && b==2) rank=6;
+          else if(p==2 && b==0) rank=5;
+          else if(p==0 && b==1) rank=4;
+          else if(p==0 && b==0) rank=3;
+          else if(p==1 && b==0) rank=2;
+          else if(p==1 && b==1) rank=1;
+          else if(p==1 && b==2) rank=0;
+          else if(p==2 && b==1) rank=0;
+          return {rowColDiagIndex: i, rank: rank};
+        }).sort((a,b)=>b.rank-a.rank); //sort ranks descending
+        //get most important
+        let bestRowColDiag = [];
+        ranksRowColDiag.forEach((element)=>{
+          if(element.rank == ranksRowColDiag[0].rank) bestRowColDiag.push(element.rowColDiagIndex);
+        });
+        //find fields that are important to place symbol on it
+        let emptyFields = Array.from(fields).filter((element)=>element.innerText==emptyChar);
+        let mostImportantFields = emptyFields.filter(element=>{
+          let row = ~~(element.dataset.fieldid/3);
+          let col = element.dataset.fieldid%3;
+          if(bestRowColDiag.includes(row)) return true;
+          if(bestRowColDiag.includes(col+3)) return true;
+          if(row == col) { //diagonal \
+            if(bestRowColDiag.includes(6)) return true;
+          }
+          if(row + col == 2) { //diagonal /
+            if(bestRowColDiag.includes(7)) return true;
+          }
+          return false;
+        });
+        //choose randomly
+        if(mostImportantFields.length>0) {
+          id = Math.floor(Math.random() * mostImportantFields.length);
+          if(!isPlayerTurn){ //still bots move
+            lastChosenFieldId = mostImportantFields[id].dataset.fieldid;
+            update();
+          }
+        }
+
+      }else{
+        //random pick
+        let emptyFields = Array.from(fields).filter((element)=>element.innerText==emptyChar);
+        if(emptyFields.length>0) {
+          id = Math.floor(Math.random() * emptyFields.length);
+          if(!isPlayerTurn){ //still bots move
+            lastChosenFieldId = emptyFields[id].dataset.fieldid;
+            update();
+          }
+        }
+      } 
+    }, Math.floor(Math.random() * 1500) + 100);
+  }
 }
 
-function drawWinRedSlash() {
-  if(win.whereIdWinningArray != null) {
-    if(win.whereIdWinningArray==6)
-      document.getElementsByClassName("win-slash")[0].innerHTML = "<img class='slash' src='./../assets/winslash.png'></img>";
-    else if(win.whereIdWinningArray==7)
-      document.getElementsByClassName("win-slash")[0].innerHTML = "<img class='slash' style='transform: rotate(90deg)' src='./../assets/winslash.png'></img>";
-    else if(win.whereIdWinningArray<=2)
-      document.getElementsByClassName("win-slash")[0].innerHTML = "<div class='slash' style='background-color: red; height: 20px; margin-top:"+win.whereIdWinningArray*100+"px;' margin-bottom:"+(2-win.whereIdWinningArray)*100+"px;'></div>";
-    else if(win.whereIdWinningArray<=5)
-      document.getElementsByClassName("win-slash")[0].innerHTML = "<div class='slash' style='background-color: red; width: 20px; margin-left:"+(win.whereIdWinningArray-3)*100+"px;' margin-right:"+(5-win.whereIdWinningArray)*100+"px;'></div>";
-    document.getElementsByClassName("win-slash")[0].style.display = "block";
-  }
-  switch (win.whoWins) {
-    case "player":
-      document.getElementsByClassName("who-wins-img-wrap")[0].innerHTML= O;
-      document.getElementsByClassName("who-wins-text-wrap")[0].innerText= "wins!";
-      break;
-    case "bot":
-      document.getElementsByClassName("who-wins-img-wrap")[0].innerHTML= X;
-      document.getElementsByClassName("who-wins-text-wrap")[0].innerText= "wins!";
-      break;
-    case "draw":
-      document.getElementsByClassName("who-wins-img-wrap")[0].innerHTML= XO;
-      document.getElementsByClassName("who-wins-text-wrap")[0].innerText= "it is a draw!";
-      break;
-  }
-}
-
-function resetGame() {
-  playerChange(true);
-  clearBoard();
-  winningArray = [ //tells how many symbols has player or bot in rows/colums/ondiagonals
+//starts/resets game
+function start() {
+  // playerChange(true);
+  Array.from(fields).forEach((element)=>{
+    element.innerHTML=emptyChar;
+  });
+  winRedLine.style.display = "none";
+  rowColDiagSymbolsCountArray = [ //tells how many symbols has player or bot in rows/colums/ondiagonals
     {player: 0, bot: 0}, //row 0
     {player: 0, bot: 0}, //row 1
     {player: 0, bot: 0}, //row 2
@@ -187,11 +193,19 @@ function resetGame() {
     {player: 0, bot: 0}, //diagonal \
     {player: 0, bot: 0}, //diagonal /
   ];
-  win = {whoWins: null, whereIdWinningArray: null};
-  document.getElementsByClassName("who-wins-img-wrap")[0].innerHTML= "";
-  document.getElementsByClassName("who-wins-text-wrap")[0].innerText= "";
+  gameStatus = {whoWins: null, whereIdWinningArray: null};
+  whoWinsImgWrap.innerText = "";
+  whoWinsTextWrap.innerText = "";
+  lastChosenFieldId=null;
+  isPlayerTurn=true;
+  update();
 }
 
 function bodyOnLoad() {
-  resetGame();
+  whoWinsImgWrap = document.getElementById("who-wins-img-wrap");
+  whoWinsTextWrap = document.getElementById("who-wins-text-wrap");
+  fields = document.getElementsByClassName("field");
+  winRedLine = document.getElementsByClassName("win-slash")[0];
+  turnIndicators = document.getElementsByClassName("turn");
+  start();
 }
