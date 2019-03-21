@@ -25,11 +25,8 @@ function update() {
     //update board
     //place symbol
     if (lastChosenFieldId !== null) {
-        console.log(fields[lastChosenFieldId].innerText == emptyChar);
         if (fields[lastChosenFieldId].innerText == emptyChar) {
-            console.log(fields[lastChosenFieldId].innerHTML);
             fields[lastChosenFieldId].innerHTML = isPlayerTurn ? O : X;
-            console.log(fields[lastChosenFieldId].innerHTML);
             isPlayerTurn = !isPlayerTurn;
             //update rowColDiagSymbolsCountArray
             var row = ~~(lastChosenFieldId / 3), col = lastChosenFieldId % 3;
