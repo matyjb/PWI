@@ -7,8 +7,8 @@ var gameStatus = { whoWins: String, whereIdWinningArray: Number };
 var O = "<img src='./../assets/O.png'></img>";
 var X = "<img src='./../assets/X.png'></img>";
 var XO = "<img src='./../assets/XO.png'></img>";
-var emptyChar = String.fromCharCode(160); //twarda spacja
-var emptyChar = "";
+var ver = window.navigator.userAgent.indexOf("MSIE ");
+var emptyChar = ver >= 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./) ? "_" : String.fromCharCode(160);
 //elements
 var whoWinsImgWrap;
 var whoWinsTextWrap;
@@ -148,7 +148,7 @@ function update() {
                         else if (p === 2 && b === 1) { rank = 0; }
                         return { rowColDiagIndex: i, rank: rank };
                     })
-                    .sort(function (a, b) {b.rank - a.rank; }); //sort ranks descending
+                    .sort(function (a, b) {return b.rank - a.rank; }); //sort ranks descending
                 //get most important
                 var bestRowColDiag = [];
                 ranksRowColDiag.forEach(function (element) {
