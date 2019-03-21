@@ -128,7 +128,7 @@ function update() {
     if (!isPlayerTurn && gameStatus.whoWins === null) {
         //run bot's move
         setTimeout(function () {
-            if (Math.random() < 0.97) {
+            if (true) {
                 //bot cant be perfect
                 //pick best
                 //rank importance of placing symbol in rows columns diagonals
