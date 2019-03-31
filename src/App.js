@@ -1,28 +1,67 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {GlobalContextProvider} from './contexts/GlobalContext';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// import { IndexRoute,  } from 'react-router';
+import HomePage from './pages/HomePage/HomePage';
+import { withStyles } from '@material-ui/core';
+import Nav from './pages/Nav';
+import TicTacToePage from './pages/TicTacToePage/TicTacToePage';
 
-class App extends Component {
+const styles = {
+  avatar: {
+    margin: "2px 10px",
+    border: "3px solid",
+    borderColor: "#5c6bc0",
+    top: 5,
+    "&:hover": {
+      borderColor: "#7986cb",
+      cursor: "pointer"
+    }
+  },
+  drawer: {
+    width: 240,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: 240,
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0 8px',
+    justifyContent: 'flex-end',
+  },
+}
+
+
+class App extends Component{
+  state = {
+      isDrawerOpen: false, 
+  }
+
+  toggleDrawer(open) {
+    this.setState({isDrawerOpen: open});
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <GlobalContextProvider>
+        <Router>
+          {/* <Route component={Nav} path="/">
+              <Route path="home" exact component={HomePage} />
+            </Route> */}
+          <Route component={Nav}/>
+          <Switch>
+            <Route exact path="/" component={HomePage}/>
+            <Route path="/tictactoe" exact component={TicTacToePage} />
+              {/* <Route path="/dashboard" component={AsyncDashboard(userAgent)}/> */}
+              {/* <Route component={NoMatch}/> */}
+          </Switch>
+        </Router>
+      </GlobalContextProvider>
     );
   }
 }
 
-export default App;
+export default withStyles(styles)(App);
