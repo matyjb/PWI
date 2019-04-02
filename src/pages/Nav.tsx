@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppBar, Toolbar, Typography, Avatar, withStyles, SwipeableDrawer, IconButton, List, Divider, ListItem, ListItemIcon, ListItemText, ListSubheader, Button, Popper, Grow, Paper, ClickAwayListener, MenuList, MenuItem } from '@material-ui/core';
+import { AppBar, Toolbar, Avatar, withStyles, SwipeableDrawer, IconButton, List, Divider, ListItem, ListItemIcon, ListItemText, ListSubheader } from '@material-ui/core';
 import avatar from "./../assets/avatar.jpg";
 import Media from 'react-media';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -89,7 +89,7 @@ class Nav extends Component<IProps, IState>{
     const { classes } = this.props;
     return (
       <Media query="(max-width: 600px)">
-      {matches => matches ? ( 
+      {matches => matches ? ( //MOBILE
       <>
       <AppBar position="static" style={{marginBottom: 15}}>
         <Toolbar variant="dense" style={{top: 8}}>

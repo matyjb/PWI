@@ -48,15 +48,10 @@ class App extends Component{
     return (
       <GlobalContextProvider>
         <Router>
-          {/* <Route component={Nav} path="/">
-              <Route path="home" exact component={HomePage} />
-            </Route> */}
           <Route component={Nav}/>
           <Switch>
             <Route exact path="/" component={HomePage}/>
             <Route path="/tictactoe" exact component={TicTacToePage} />
-              {/* <Route path="/dashboard" component={AsyncDashboard(userAgent)}/> */}
-              {/* <Route component={NoMatch}/> */}
           </Switch>
         </Router>
       </GlobalContextProvider>
