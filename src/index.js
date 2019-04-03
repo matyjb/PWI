@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+Array.from(document.getElementsByTagName("div")).forEach(element => {
+  element.style.display="none";
+});
+document.getElementById("root").style.display = "block";
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
