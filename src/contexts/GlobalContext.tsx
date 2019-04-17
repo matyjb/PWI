@@ -1,11 +1,27 @@
 import { createContext } from "react";
 import React, { Component } from 'react'
 
-const GlobalContext = createContext({});
+
+const GlobalContext = createContext({count: 0,
+  fbContent: {
+    isLoggedIn: false,
+    userID: "",
+    first_name: "",
+    email: "",
+    picture: ""
+  }});
 
 export class GlobalContextProvider extends Component {
   state = {
     count: 0,
+    fbContent: {
+      isLoggedIn: false,
+      userID: "",
+      first_name: "",
+      email: "",
+      picture: ""
+    },
+    setFbContent: (value: any) => {return this.setState({fbContent: value})},
     incrementCount: () => {
       return this.setState({count: this.state.count + 1});
     }

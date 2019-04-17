@@ -6,6 +6,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import TopMenuItem from '../components/TopMenuItem';
+import FBLogin from '../components/FBLogin';
 
 const styles = {
   avatar: {
@@ -101,6 +102,9 @@ class Nav extends Component<IProps, IState>{
             <MenuIcon />
           </IconButton>
           <Avatar alt="matyjb-avatar"src={avatar} className={classes.avatar} onClick={()=>this.props.history.push("/")}/>
+          <div style={{marginLeft: "auto", marginTop: -15}}>
+            <FBLogin/>
+          </div>
         </Toolbar>
       </AppBar>
       <SwipeableDrawer className={classes.drawer} classes={{paper: classes.drawerPaper}} open={this.state.isDrawerOpen} onClose={()=>this.toggleDrawer(false)} onOpen={()=>this.toggleDrawer(true)}>
@@ -141,6 +145,9 @@ class Nav extends Component<IProps, IState>{
           {menuItems.map((menuItem, index) => (
             <TopMenuItem data={menuItem} key={index}/>
           ))}
+          <div style={{marginLeft: "auto", marginTop: -15}}>
+            <FBLogin/>
+          </div>
         </Toolbar>
       </AppBar>
       )}
