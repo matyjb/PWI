@@ -42,7 +42,7 @@ export default class FBLogin extends Component {
                 </Grid>
                 }
                 <Grid item>
-                  <Button variant="contained" color="primary" style={{color: "white", backgroundColor: "#5c6bc0"}}>
+                  <Button variant="contained" color="primary" style={{color: "white", backgroundColor: "#5c6bc0"}} onClick={()=>ctx.clearFbContent()}>
                     log out
                   </Button>
                 </Grid>

@@ -3,10 +3,12 @@ import './App.css';
 import {GlobalContextProvider} from './contexts/GlobalContext';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import { IndexRoute,  } from 'react-router';
-import HomePage from './pages/HomePage/HomePage';
+// import HomePage from './pages/HomePage/HomePage';
 import { withStyles } from '@material-ui/core';
-import Nav from './pages/Nav';
-import TicTacToePage from './pages/TicTacToePage/TicTacToePage';
+// import Nav from './pages/Nav';
+// import TicTacToePage from './pages/TicTacToePage/TicTacToePage';
+
+import Loadable from 'react-loadable';
 
 const styles = {
   avatar: {
@@ -34,7 +36,24 @@ const styles = {
   },
 }
 
-
+const LoadableNav = Loadable({
+  loader: () => import('./pages/Nav'),
+  loading() {
+    return <div></div>
+  }
+});
+const LoadableHomePage = Loadable({
+  loader: () => import('./pages/HomePage/HomePage'),
+  loading() {
+    return <div></div>
+  }
+});
+const LoadableTicTacToePage = Loadable({
+  loader: () => import('./pages/TicTacToePage/TicTacToePage'),
+  loading() {
+    return <div></div>
+  }
+});
 class App extends Component{
   state = {
       isDrawerOpen: false, 
@@ -48,10 +67,10 @@ class App extends Component{
     return (
       <GlobalContextProvider>
         <Router>
-          <Route component={Nav}/>
+          <Route component={LoadableNav}/>
           <Switch>
-            <Route exact path="/" component={HomePage}/>
-            <Route path="/tictactoe" exact component={TicTacToePage} />
+            <Route exact path="/" component={LoadableHomePage}/>
+            <Route path="/tictactoe" exact component={LoadableTicTacToePage} />
           </Switch>
         </Router>
       </GlobalContextProvider>
@@ -60,3 +79,7 @@ class App extends Component{
 }
 
 export default withStyles(styles)(App);
+
+
+
+

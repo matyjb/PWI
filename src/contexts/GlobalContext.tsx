@@ -22,6 +22,13 @@ export class GlobalContextProvider extends Component {
       picture: ""
     },
     setFbContent: (value: any) => {return this.setState({fbContent: value})},
+    clearFbContent: () => {return this.setState({fbContent: {
+      isLoggedIn: false,
+      userID: "",
+      first_name: "",
+      email: "",
+      picture: ""
+    }})},
     incrementCount: () => {
       return this.setState({count: this.state.count + 1});
     }
