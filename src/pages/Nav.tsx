@@ -7,7 +7,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import TopMenuItem from '../components/TopMenuItem';
 import FBLogin from '../components/FBLogin';
-import Loadable from 'react-loadable';
 
 const styles = {
   avatar: {
