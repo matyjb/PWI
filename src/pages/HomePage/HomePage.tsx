@@ -16,7 +16,7 @@ export default class HomePage extends Component {
       <div>
         <div style={styles.titleBox}>
           <Typography variant="h2">
-            matyjb.cba.pl
+            matyjb
           </Typography>
         </div>
         <BlogPost title="Title" date="2.4.2019">
