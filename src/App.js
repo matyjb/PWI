@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import {GlobalContextProvider} from './contexts/GlobalContext';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-
+import Nav from './pages/Nav';
 import Loadable from 'react-loadable';
 
 
-const LoadableNav = Loadable({
-  loader: () => import('./pages/Nav'),
-  loading() {
-    return <div></div>
-  }
-});
+// const LoadableNav = Loadable({
+//   loader: () => import('./pages/Nav'),
+//   loading() {
+//     return <div></div>
+//   }
+// });
 const LoadableHomePage = Loadable({
   loader: () => import('./pages/HomePage/HomePage'),
   loading() {
@@ -28,7 +28,7 @@ class App extends Component{
     return (
       <GlobalContextProvider>
         <Router>
-          <Route component={LoadableNav}/>
+          <Route component={Nav}/>
           <Switch>
             <Route exact path="/" component={LoadableHomePage}/>
             <Route path="/tictactoe" exact component={LoadableTicTacToePage} />
