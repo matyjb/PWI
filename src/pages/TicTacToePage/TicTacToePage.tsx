@@ -224,7 +224,6 @@ class TicTacToePage extends Component<IProps, IState> {
     )});
     this.setState({gameStatus: {whoWin: null, whereRowColDiagId: null}});
     this.setState({isPlayerTurn: true});
-    console.log(this.state.rowColDiagSymbolsCountArray)
   }
   render() {
     const {classes} = this.props

@@ -43,7 +43,7 @@ class TopMenuItem extends Component<IProps, IState>{
         >
           {this.props.data.title}
         </Button>
-        <Popper open={this.state.open} anchorEl={this.anchorEl.current} transition disablePortal>
+        <Popper open={this.state.open} anchorEl={this.anchorEl.current} transition>
           {({ TransitionProps, placement }) => (
             <Grow
               {...TransitionProps}

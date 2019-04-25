@@ -23,7 +23,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "node deploy"
+    "deploy": "node deploy",
+    "bdeploy": "react-scripts build && node deploy"
   },
   "eslintConfig": {
     "extends": "react-app"

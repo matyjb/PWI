@@ -6,6 +6,7 @@ const GlobalContext = createContext({count: 0,
   fbContent: {
     isLoggedIn: false,
     userID: "",
+    name: "",
     first_name: "",
     email: "",
     picture: ""
@@ -17,6 +18,7 @@ export class GlobalContextProvider extends Component {
     fbContent: {
       isLoggedIn: false,
       userID: "",
+      name: "",
       first_name: "",
       email: "",
       picture: ""
@@ -25,6 +27,7 @@ export class GlobalContextProvider extends Component {
     clearFbContent: () => {return this.setState({fbContent: {
       isLoggedIn: false,
       userID: "",
+      name: "",
       first_name: "",
       email: "",
       picture: ""
