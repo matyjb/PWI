@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using matyjb.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace matyjb.Controllers
 {
     [Route("api/[controller]")]
-    public class SampleDataController : Controller
+    public class WeatherController : Controller
     {
         private static string[] Summaries = new[]
         {
@@ -24,21 +25,6 @@ namespace matyjb.Controllers
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)]
             });
-        }
-
-        public class WeatherForecast
-        {
-            public string DateFormatted { get; set; }
-            public int TemperatureC { get; set; }
-            public string Summary { get; set; }
-
-            public int TemperatureF
-            {
-                get
-                {
-                    return 32 + (int)(TemperatureC / 0.5556);
-                }
-            }
         }
     }
 }

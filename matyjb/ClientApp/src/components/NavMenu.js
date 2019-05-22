@@ -1,9 +1,10 @@
 import React from 'react';
-import { AppBar, Toolbar, Avatar, withStyles, SwipeableDrawer, IconButton, List, Divider, ListItem, ListItemIcon, ListItemText, ListSubheader } from '@material-ui/core';
+import { AppBar, Toolbar, Avatar, withStyles, IconButton } from '@material-ui/core';
+// import { AppBar, Toolbar, Avatar, withStyles, SwipeableDrawer, IconButton, List, Divider, ListItem, ListItemIcon, ListItemText, ListSubheader } from '@material-ui/core';
 import Media from 'react-media';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import DraftsIcon from '@material-ui/icons/Drafts';
+// import MenuIcon from '@material-ui/icons/Menu';
+// import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+// import DraftsIcon from '@material-ui/icons/Drafts';
 import NavMenuItem from './NavMenuItem';
 import FBLoginButton from './FBLoginButton';
 import { withRouter } from 'react-router';

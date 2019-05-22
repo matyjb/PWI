@@ -5,7 +5,7 @@ import Media from 'react-media';
 const BlogPost = props => (
       <Media query="(max-width: 600px)">
       {matches => 
-        <div style={{margin: !matches ? "0 10%" : "0 1%"}}>
+        <div style={{margin: !matches ? "20px 10%" : "20px 1%"}}>
           <Paper elevation={1}>
           <Grid
             container
