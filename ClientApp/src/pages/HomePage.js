@@ -22,7 +22,7 @@ export default class HomePage extends Component {
   }
 
   async fetchBlogPosts() {
-    const url = `api/Blog/all`;
+    const url = `https://matyjbpwi.azurewebsites.net/api/Blog/all`;
     const response = await fetch(url);
     const posts = await response.json();
     this.setState({posts: posts});
