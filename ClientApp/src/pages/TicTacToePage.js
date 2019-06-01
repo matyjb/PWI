@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Grid, withStyles, Paper, Button, Typography} from '@material-ui/core';
 import Media from 'react-media';
+import { translate } from 'react-multi-lang';
 var O = require("./../assets/O.png");
 var X = require("./../assets/X.png");
 var XO = require("./../assets/XO.png");
@@ -216,7 +217,7 @@ class TicTacToePage extends Component {
     this.setState({isPlayerTurn: true});
   }
   render() {
-    const {classes} = this.props
+    const {classes,t} = this.props
     return (
         <Grid container justify="center">
           <Media query="(max-width: 640px)">
@@ -245,7 +246,7 @@ class TicTacToePage extends Component {
               </Grid>
               <Grid item style={{minWidth: 300, minHeight:300, textAlign: "center", padding: 10}}>
                 <Grid container direction="column" justify="space-between" alignItems="stretch" style={{height: "100%"}}>
-                  <Button onClick={()=>this.restartGame()} fullWidth variant="contained" color="primary">reset</Button>
+                  <Button onClick={()=>this.restartGame()} fullWidth variant="contained" color="primary">{t("tictactoe.reset")}</Button>
                   <div>
                     <Paper style={{
                       padding: 10,
@@ -254,7 +255,7 @@ class TicTacToePage extends Component {
                     className={classes.moveIndicator}
                     >
                       <Typography className={classes.moveIndicatorText} variant="h5" component="h3" style={{color: this.state.isPlayerTurn ? "white" : "black",}}>
-                        Gracz
+                        {t("tictactoe.player")}
                       </Typography>
                     </Paper>
                     <Paper style={{
@@ -264,7 +265,7 @@ class TicTacToePage extends Component {
                     className={classes.moveIndicator}
                     >
                       <Typography className={classes.moveIndicatorText} variant="h5" component="h3" style={{color: !this.state.isPlayerTurn ? "white" : "black",}}>
-                        Bot
+                        {t("tictactoe.bot")}
                       </Typography>
                     </Paper>
                   </div>
@@ -274,9 +275,9 @@ class TicTacToePage extends Component {
                     {this.state.gameStatus.whoWin === "draw" && <img alt="X field" src={XO}/>} 
                   </div>
                   <Typography variant="h5" component="h3">
-                        {this.state.gameStatus.whoWin === "player" && "Wygrywa gracz!"} 
-                        {this.state.gameStatus.whoWin === "bot" && "Wygrywa bot!"} 
-                        {this.state.gameStatus.whoWin === "draw" && "Remis!"}
+                        {this.state.gameStatus.whoWin === "player" && t("tictactoe.playerwin")} 
+                        {this.state.gameStatus.whoWin === "bot" && t("tictactoe.botwin")} 
+                        {this.state.gameStatus.whoWin === "draw" && t("tictactoe.draw")}
                         {this.state.gameStatus.whoWin === null && String.fromCharCode(160)}
                   </Typography>
                 </Grid>
@@ -289,4 +290,4 @@ class TicTacToePage extends Component {
     )
   }
 }
-export default withStyles(styles)(TicTacToePage);
+export default withStyles(styles)(translate(TicTacToePage));

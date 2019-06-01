@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Container } from 'reactstrap';
 import {Typography, Grid, IconButton, Paper} from "@material-ui/core"
 import { Code, Archive } from '@material-ui/icons';
+import { translate } from 'react-multi-lang';
 
-export default class SourceCodePage extends Component {
+class SourceCodePage extends Component {
   render() {
+    const { t } = this.props;
     return (
       <Container style={{textAlign: "center"}}>
         <Grid container direction="row" justify="space-around" alignItems="center">
@@ -18,7 +20,7 @@ export default class SourceCodePage extends Component {
                 </IconButton>
               </Grid>
               <Grid item>
-                <Typography>Zobacz kod na Githubie</Typography>
+                <Typography>{t("sourceCode.seeOnGithub")}</Typography>
               </Grid>
             </Grid>
           </Paper>
@@ -32,7 +34,7 @@ export default class SourceCodePage extends Component {
                 </IconButton>
               </Grid>
               <Grid item>
-                <Typography>Pobierz zip</Typography>
+                <Typography>{t("sourceCode.downloadZip")}</Typography>
               </Grid>
             </Grid>
           </Paper>
@@ -41,3 +43,5 @@ export default class SourceCodePage extends Component {
     )
   }
 }
+
+export default translate(SourceCodePage);

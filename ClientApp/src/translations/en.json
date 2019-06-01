@@ -18,5 +18,17 @@
     "loading": "Loading",
     "previous": "Previous",
     "next": "Next"
+  },
+  "tictactoe": {
+    "reset": "Game reset",
+    "player": "Player",
+    "bot": "Bot",
+    "playerwin": "Player wins!",
+    "botwin": "Bot wins!",
+    "draw": "Draw!"
+  },
+  "sourceCode":{
+    "seeOnGithub": "See code on Github",
+    "downloadZip": "Download .zip"
   }
 }
