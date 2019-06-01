@@ -10,6 +10,8 @@ import FBLoginButton from './FBLoginButton';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { CloudDownloadRounded, VideogameAssetRounded, CloudRounded } from '@material-ui/icons';
+import LangSelect from './LangSelect';
+import { translate } from 'react-multi-lang';
 var avatar = require("./../assets/avatar.jpg");
 const styles = {
   avatar: {
@@ -38,17 +40,17 @@ const styles = {
 }
 const menuItems = [
   {
-    title: "Kółko i krzyżyk",
+    title: "navMenu.tictactoe",
     link: "/tictactoe",
     icon: <VideogameAssetRounded />,
   },
   {
-    title: "Source code",
+    title: "navMenu.sourcecode",
     link: "/source",
     icon: <CloudDownloadRounded />
   },
   {
-    title: "Weather",
+    title: "navMenu.weather",
     link: "/weather",
     icon: <CloudRounded />
   },
@@ -66,7 +68,11 @@ class NavMenu extends React.Component {
     this.setState({isDrawerOpen: open});
   }
   render () {
-    const { classes } = this.props;
+    const { classes, t } = this.props;
+    //translate manuItems
+    let menuItemsTranslated = menuItems.map(e=>{return {title: t(e.title),link:e.link, icon: e.icon}});
+    
+
     return (
       <Media query="(max-width: 600px)">
       {matches => matches ? ( //MOBILE
@@ -81,12 +87,15 @@ class NavMenu extends React.Component {
             <MenuIcon />
           </IconButton> */}
           <Avatar alt="matyjb-avatar" src={avatar} className={classes.avatar} onClick={()=>this.props.history.push("/")}/>
-          {menuItems.map((menuItem, index) => (
+          {menuItemsTranslated.map((menuItem, index) => (
             <IconButton key={index} className={classes.button} style={{color: "white"}} aria-label={menuItem.title} onClick={()=>this.props.history.push(menuItem.link)}>
               {menuItem.icon}
             </IconButton>
           ))}
           <div style={{marginLeft: "auto", marginTop: -10}}>
+            <LangSelect/>
+          </div>
+          <div style={{marginLeft: 8, marginTop: -10}}>
             <FBLoginButton/>
           </div>
         </Toolbar>
@@ -124,7 +133,7 @@ class NavMenu extends React.Component {
       <AppBar position="static" style={{marginBottom: 15}}>
         <Toolbar variant="dense" style={{top: 3}}>
           <Avatar alt="matyjb-avatar"src={avatar} className={classes.avatar} onClick={()=>this.props.history.push("/")}/>
-          {menuItems.map((menuItem, index) => (
+          {menuItemsTranslated.map((menuItem, index) => (
             <NavMenuItem link={menuItem.link} key={index}>
               <div style={{marginRight: 6}}>
                 {menuItem.icon}
@@ -133,6 +142,9 @@ class NavMenu extends React.Component {
             </NavMenuItem>
           ))}
           <div style={{marginLeft: "auto", marginTop: -10}}>
+            <LangSelect/>
+          </div>
+          <div style={{marginLeft: 8, marginTop: -10}}>
             <FBLoginButton/>
           </div>
         </Toolbar>
@@ -142,4 +154,4 @@ class NavMenu extends React.Component {
     )}
 }
 
-export default  withRouter(connect()(withStyles(styles)(NavMenu)));
+export default  withRouter(connect()(withStyles(styles)(translate(NavMenu))));

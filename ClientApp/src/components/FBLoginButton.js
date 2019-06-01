@@ -6,6 +6,7 @@ import {ArrowDropDownRounded, ArrowDropUpRounded} from '@material-ui/icons';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actionCreators } from '../store/FacebookLogin';
+import { translate } from 'react-multi-lang';
 
 class FBLoginButton extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class FBLoginButton extends Component {
     }));
   };
   render() {
+    const {t} = this.props;
     return (
       <Media query="(max-width: 600px)">
       {matches => 
@@ -65,7 +67,7 @@ class FBLoginButton extends Component {
                               >
                                 <Grid item>
                                   <Typography variant="body2" gutterBottom style={{fontWeight: 400}}>
-                                    full name:
+                                  {t('fbLogin.fullname')}
                                   </Typography>
                                 </Grid>
                                 <Grid item>
@@ -83,7 +85,7 @@ class FBLoginButton extends Component {
                               >
                                 <Grid item>
                                   <Typography variant="body2" gutterBottom style={{fontWeight: 400}}>
-                                    email: 
+                                  {t('fbLogin.email')}
                                   </Typography>
                                 </Grid>
                                 <Grid item>
@@ -100,7 +102,7 @@ class FBLoginButton extends Component {
                 </Grid>
                 <Grid item>
                   <Button variant="contained" color="primary" style={{color: "white", backgroundColor: "#5c6bc0"}} onClick={()=>this.props.logout()}>
-                    log out
+                  {t('fbLogin.logout')}
                   </Button>
                 </Grid>
                 </Grid>
@@ -117,7 +119,7 @@ class FBLoginButton extends Component {
                       <SvgIcon style={{marginRight: 5}}>
                         <path d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M18,5H15.5A3.5,3.5 0 0,0 12,8.5V11H10V14H12V21H15V14H18V11H15V9A1,1 0 0,1 16,8H18V5Z" />
                       </SvgIcon>
-                      Log in with FB
+                      {t('fbLogin.login')}
                     </Button>
                   )}
                 />
@@ -132,4 +134,4 @@ class FBLoginButton extends Component {
 export default connect(
   state => state.facebookLogin,
   dispatch => bindActionCreators(actionCreators, dispatch)
-)(FBLoginButton);
+)(translate(FBLoginButton));

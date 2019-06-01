@@ -1,0 +1,22 @@
+{
+  "navMenu": {
+    "tictactoe": "Tic Tac Toe",
+    "sourcecode": "source code",
+    "weather": "weather"
+  },
+  "fbLogin": {
+    "login": "login",
+    "logout": "logout",
+    "email": "e-mail",
+    "fullname": "full name"
+  },
+  "weatherForecasts":{
+    "title": "Weather forecast",
+    "date": "Date",
+    "temperature": "Temperature",
+    "summary": "Summary",
+    "loading": "Loading",
+    "previous": "Previous",
+    "next": "Next"
+  }
+}

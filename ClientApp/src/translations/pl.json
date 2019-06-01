@@ -1,0 +1,22 @@
+{
+  "navMenu": {
+    "tictactoe": "kółko i krzyżyk",
+    "sourcecode": "kod źródłowy",
+    "weather": "pogoda"
+  },
+  "fbLogin": {
+    "login": "zaloguj",
+    "logout": "wyloguj",
+    "email": "e-mail",
+    "fullname": "pełne imię"
+  },
+  "weatherForecasts":{
+    "title": "Prognoza pogody",
+    "date": "Data",
+    "temperature": "Temperatura",
+    "summary": "Podsumowanie",
+    "loading": "Ładowanie",
+    "previous": "Poprzednie",
+    "next": "Następne"
+  }
+}

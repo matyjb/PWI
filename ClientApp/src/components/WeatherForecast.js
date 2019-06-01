@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actionCreators } from '../store/WeatherForecasts';
 import {Button} from "@material-ui/core";
+import { translate } from 'react-multi-lang';
 
 class WeatherForecast extends Component {
   state = {
@@ -23,17 +24,17 @@ class WeatherForecast extends Component {
   }
 
   render() {
+    const {t} = this.props;
     return (
       <div>
-        <h1>Weather forecast</h1>
-        <p>This component demonstrates fetching data from the server and working with URL parameters.</p>
+        <h1>{t("weatherForecasts.title")}</h1>
         <table className='table table-striped'>
           <thead>
             <tr>
-              <th>Date</th>
-              <th>Temp. (C)</th>
-              <th>Temp. (F)</th>
-              <th>Summary</th>
+              <th>{t("weatherForecasts.date")}</th>
+              <th>{t("weatherForecasts.temperature")} (C)</th>
+              <th>{t("weatherForecasts.temperature")} (F)</th>
+              <th>{t("weatherForecasts.summary")}</th>
             </tr>
           </thead>
           <tbody>
@@ -48,9 +49,9 @@ class WeatherForecast extends Component {
           </tbody>
         </table>
         <p className='clearfix text-center'>
-          <Button onClick={()=>this.setState({startDateIndex: this.state.startDateIndex-5})}>Previous</Button>
-          <Button onClick={()=>this.setState({startDateIndex: this.state.startDateIndex+5})}>Next</Button>
-          {this.props.isLoading ? <span>Loading...</span> : []}
+          <Button onClick={()=>this.setState({startDateIndex: this.state.startDateIndex-5})}>{t("weatherForecasts.previous")}</Button>
+          <Button onClick={()=>this.setState({startDateIndex: this.state.startDateIndex+5})}>{t("weatherForecasts.next")}</Button>
+          {this.props.isLoading ? <span>{t("weatherForecasts.loading")}...</span> : []}
         </p>
       </div>
     );
@@ -60,4 +61,4 @@ class WeatherForecast extends Component {
 export default connect(
   state => state.weatherForecasts,
   dispatch => bindActionCreators(actionCreators, dispatch)
-)(WeatherForecast);
+)(translate(WeatherForecast));

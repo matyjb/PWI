@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router';
 import Layout from './components/Layout';
 import Loadable from 'react-loadable';
 
+
 const LoadableHomePage = Loadable({
   loader: () => import('./pages/HomePage'),
   loading() {
@@ -29,6 +30,7 @@ const LoadableSourceCodePage = Loadable({
 });
 
 export default () => (
+  <div>
   <Layout>
     <Switch>
       <Route exact path="/" component={LoadableHomePage}/>
@@ -38,4 +40,5 @@ export default () => (
       <Redirect to="/" />
     </Switch>
   </Layout>
+  </div>
 );
