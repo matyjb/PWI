@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using matyjb.Models;
+using matyjb.API.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace matyjb.Controllers
+namespace matyjb.API.Controllers
 {
     [Route("api/[controller]")]
     public class WeatherController : Controller
