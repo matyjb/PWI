@@ -7,6 +7,7 @@ import TicTacToePage from './pages/TicTacToePage';
 import SourceCodePage from './pages/SourceCodePage';
 import WeatherForecastPage from './pages/WeatherForecastPage';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 // const LoadableHomePage = Loadable({
 //   loader: () => import('./pages/HomePage'),
@@ -49,7 +50,7 @@ export default () => (
           <Route path="/source" exact component={SourceCodePage} />
           <Route path="/weather" exact component={WeatherForecastPage} />
           <Route path="/login" exact component={LoginPage} />
-          {/* <Route path="/register" exact component={LoadableRegisterPage} /> */}
+          <Route path="/register" exact component={RegisterPage} />
           <Redirect to="/" />
         </Switch>
       </Layout>

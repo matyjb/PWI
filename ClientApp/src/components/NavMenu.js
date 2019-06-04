@@ -1,12 +1,12 @@
 import React from 'react';
-import { AppBar, Toolbar, Avatar, withStyles, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, Avatar, withStyles, IconButton, Button } from '@material-ui/core';
 // import { AppBar, Toolbar, Avatar, withStyles, SwipeableDrawer, IconButton, List, Divider, ListItem, ListItemIcon, ListItemText, ListSubheader } from '@material-ui/core';
 import Media from 'react-media';
 // import MenuIcon from '@material-ui/icons/Menu';
 // import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 // import DraftsIcon from '@material-ui/icons/Drafts';
 import NavMenuItem from './NavMenuItem';
-import FBLoginButton from './FBLoginButton';
+//import FBLoginButton from './FBLoginButton';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { CloudDownloadRounded, VideogameAssetRounded, CloudRounded } from '@material-ui/icons';
@@ -92,12 +92,13 @@ class NavMenu extends React.Component {
               {menuItem.icon}
             </IconButton>
           ))}
-          <div style={{marginLeft: "auto", marginTop: -10}}>
+          <div style={{marginLeft: "auto", marginTop: -3}}>
             <LangSelect/>
           </div>
-          <div style={{marginLeft: 8, marginTop: -10}}>
+          {/* <div style={{marginLeft: 8, marginTop: -10}}>
             <FBLoginButton/>
-          </div>
+          </div> */}
+          <Button variant="outlined" color="inherit" style={{marginLeft: 8}} onClick={()=>this.props.history.push("/login")}>login</Button>
         </Toolbar>
       </AppBar>
       {/* <SwipeableDrawer className={classes.drawer} classes={{paper: classes.drawerPaper}} open={this.state.isDrawerOpen} onClose={()=>this.toggleDrawer(false)} onOpen={()=>this.toggleDrawer(true)}>
@@ -141,12 +142,13 @@ class NavMenu extends React.Component {
               {menuItem.title}
             </NavMenuItem>
           ))}
-          <div style={{marginLeft: "auto", marginTop: -10}}>
+          <div style={{marginLeft: "auto", marginTop: -3}}>
             <LangSelect/>
           </div>
-          <div style={{marginLeft: 8, marginTop: -10}}>
+          {/* <div style={{marginLeft: 8, marginTop: -10}}>
             <FBLoginButton/>
-          </div>
+          </div> */}
+          <Button variant="outlined" color="inherit" style={{marginLeft: 8}} onClick={()=>this.props.history.push("/login")}>login</Button>
         </Toolbar>
       </AppBar>
       )}
