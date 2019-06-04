@@ -7,7 +7,7 @@ import Media from 'react-media';
 // import DraftsIcon from '@material-ui/icons/Drafts';
 import NavMenuItem from './NavMenuItem';
 import FBLoginButton from './FBLoginButton';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { CloudDownloadRounded, VideogameAssetRounded, CloudRounded } from '@material-ui/icons';
 import LangSelect from './LangSelect';

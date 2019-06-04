@@ -1,34 +1,27 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
-import { createBrowserHistory } from 'history';
-import configureStore from './store/configureStore';
+import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import * as serviceWorker from './serviceWorker';
+import configureStore from './store/configureStore';
+import { Provider } from 'react-redux';
 import { setDefaultTranslations, setDefaultLanguage } from 'react-multi-lang'
 import pl from './translations/pl.json'
 import en from './translations/en.json'
 
 setDefaultTranslations({pl, en})
 setDefaultLanguage('pl')
-// Create browser history to use in the Redux store
-const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
-const history = createBrowserHistory({ basename: baseUrl });
 
-// Get the application-wide store instance, prepopulating with state from the server where available.
 const initialState = window.initialReduxState;
-const store = configureStore(history, initialState);
-
-const rootElement = document.getElementById('root');
-
+const store = configureStore(initialState);
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
-    </ConnectedRouter>
-  </Provider>,
-  rootElement);
+    <App />
+  </Provider>
+, document.getElementById('root'));
 
-registerServiceWorker();
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();

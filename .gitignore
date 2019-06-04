@@ -2,3 +2,5 @@
 matyjb/appsettings\.json
 
 \.vs/
+
+ClientApp/deploy\.js
