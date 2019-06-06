@@ -39,6 +39,26 @@ namespace matyjb.API.Controllers
 
             return authService.GetAuthData(user.Id);
         }
+        [HttpPost("forgotpassword")]
+        public JsonResult Post([FromBody]ForgotPassViewModel model)
+        {
+            if (!ModelState.IsValid) return new JsonResult(ModelState);
+
+            var user = userRepository.GetSingle(u => u.Email == model.Email);
+
+            if (user == null)
+            {
+                return new JsonResult(new { email = "no user with this email" });
+            }
+
+            var usernameValid = model.Username == user.Username;
+            if (!usernameValid)
+            {
+                return new JsonResult(new { username = "invalid username" });
+            }
+
+            return new JsonResult(new { password = user.Password });
+        }
 
         [HttpPost("register")]
         public ActionResult<AuthData> Post([FromBody]RegisterViewModel model)

@@ -17,47 +17,35 @@ var styles={
   divider:{
     margin: "5px 0px",
   }
-  // input:{
-    
-  // },
-  // email:{
-
-  // },
-  // username:{
-
-  // },
-  // password:{
-
-  // }
 }
 
-class LoginPage extends Component {
+class ForgotPassPage extends Component {
   state = {
     email: "",
-    password: "",
+    username: "",
     error:{
       email: null,
-      password: null,
-    }
+      username: null,
+    },
+    password: ""
   }
 
   submit = async () => {
     //TODO: validation
 
-    const rawResponse = await fetch('https://matyjbpwi.azurewebsites.net/api/auth/login', {
+    const rawResponse = await fetch('https://matyjbpwi.azurewebsites.net/api/auth/forgotpassword', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({email: this.state.email, password: this.state.password})
+      body: JSON.stringify({email: this.state.email, username: this.state.username})
     });
     const content = await rawResponse.json();
-    if(!content.token){
-      this.setState({error: {email: true,password:true}});
+    if(!content.password){
+      this.setState({error: {email: true,username:true}});
     }else{
-      this.props.setLogin(content);
-      this.props.history.push("/");
+      this.setState({password: content.password});
     }
   }
   handleChange = name => event => {
@@ -76,7 +64,7 @@ class LoginPage extends Component {
               required
               error={this.state.error.email}
               id="email-input"
-              label={t("loginPage.email")}
+              label={t("forgotPassPage.email")}
               type="email"
               autoComplete="email"
               margin="normal"
@@ -88,31 +76,26 @@ class LoginPage extends Component {
           <Grid item>
             <TextField
               required
-              error={this.state.error.password}
-              id="password-input"
-              label={t("loginPage.password")}
-              type="password"
-              autoComplete="current-password"
+              error={this.state.error.username}
+              id="username-input"
+              label={t("forgotPassPage.username")}
+              autoComplete="current-username"
               margin="normal"
               variant="outlined"
-              value={this.state.password}
-              onChange={this.handleChange('password')}
+              value={this.state.username}
+              onChange={this.handleChange('username')}
               />
           </Grid>
         </Grid>
         <Divider style={styles.divider}/>
-        <Button color="primary" onClick={this.submit}>{t("loginPage.login")}</Button>
-        <Divider style={styles.divider}/>
         <Grid container direction="column">
           <Grid item>
-            <Typography variant="caption">{t("loginPage.noAccount")}</Typography>
+            <Button color="primary" onClick={this.submit}>{t("forgotPassPage.forgot")}</Button>
           </Grid>
           <Grid item>
-            <Button color="primary" onClick={()=>this.props.history.push("/register")}>{t("loginPage.register")}</Button>
+            <Typography>{t("forgotPassPage.yourPass")}: {this.state.password}</Typography>
           </Grid>
         </Grid>
-        <Divider style={styles.divider}/>
-        <Button color="primary" onClick={()=>this.props.history.push("/forgot")}>{t("loginPage.forgotPass")}</Button>        
       </Paper>
     )
   }
@@ -120,4 +103,4 @@ class LoginPage extends Component {
 export default connect(
   state => state.login,
   dispatch => bindActionCreators(actionCreators, dispatch)
-)(translate(LoginPage));
+)(translate(ForgotPassPage));

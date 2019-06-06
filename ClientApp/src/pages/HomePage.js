@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import BlogPost from './../components/BlogPost';
-import {Typography, LinearProgress} from "@material-ui/core"
+import {Typography, LinearProgress, Divider, Grid} from "@material-ui/core"
 import moment from "moment";
+import GKimg from './../assets/GK.png'; 
+import opsuimg from './../assets/opsu.png'; 
+import csharpimg from './../assets/csharp.png'; 
+import jsimg from './../assets/js.png'; 
+import reactimg from './../assets/react.png'; 
+import Project from '../components/Project';
+import { translate } from 'react-multi-lang';
 
 var styles={
   titleBox: {
@@ -11,7 +18,7 @@ var styles={
     height: 200,
   }
 }
-export default class HomePage extends Component {
+class HomePage extends Component {
   state={
     isBlogLoading: true,
     posts: null,
@@ -29,13 +36,32 @@ export default class HomePage extends Component {
     this.setState({isBlogLoading: false});
   }
   render() {
+    const {t} = this.props;
     return (
       <div>
         <div style={styles.titleBox}>
           <Typography variant="h2">
             matyjb
           </Typography>
-        </div> 
+        </div>
+        <Grid container direction="row" justify="space-evenly" spacing="">
+          <Grid item style={{height: 100}}>
+            <img src={jsimg} alt="js" style={{height: "100%"}}/>
+          </Grid>
+          <Grid item style={{height: 100}}>
+            <img src={csharpimg} alt="csharp" style={{height: "100%"}}/>
+          </Grid>
+          <Grid item style={{height: 100}}>
+            <img src={reactimg} alt="react" style={{height: "100%"}}/>
+          </Grid>
+        </Grid>
+        <Divider style={{margin:"10px 0"}}/>
+        <Typography variant="h2" style={{marginTop: 20}}>{t("homePage.projects")}</Typography>
+        <Divider style={{margin:"10px 0"}}/>
+        <Project image={opsuimg} githubLink="https://github.com/matyjb/opsu" description={t("homePage.opsuDesc")} title={t("homePage.opsuTitle")}></Project>
+        <Project image={GKimg} githubLink="https://github.com/matyjb/GK-3D" description={t("homePage.gkDesc")} title={t("homePage.gkTitle")}></Project>
+        
+        <Typography variant="h2" style={{marginTop: 20}}>{t("homePage.blog")}</Typography>
         {this.state.isBlogLoading ? 
           <LinearProgress />
         :
@@ -51,3 +77,4 @@ export default class HomePage extends Component {
     )
   }
 }
+export default translate(HomePage);

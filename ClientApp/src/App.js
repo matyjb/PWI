@@ -8,6 +8,7 @@ import SourceCodePage from './pages/SourceCodePage';
 import WeatherForecastPage from './pages/WeatherForecastPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import ForgotPassPage from './pages/ForgotPassPage';
 
 // const LoadableHomePage = Loadable({
 //   loader: () => import('./pages/HomePage'),
@@ -51,6 +52,7 @@ export default () => (
           <Route path="/weather" exact component={WeatherForecastPage} />
           <Route path="/login" exact component={LoginPage} />
           <Route path="/register" exact component={RegisterPage} />
+          <Route path="/forgot" exact component={ForgotPassPage} />
           <Redirect to="/" />
         </Switch>
       </Layout>

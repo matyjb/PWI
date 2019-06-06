@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actionCreators } from '../store/WeatherForecasts';
-import {Button} from "@material-ui/core";
 import { translate } from 'react-multi-lang';
+import {Button} from "@material-ui/core";
 
 class WeatherForecast extends Component {
   state = {

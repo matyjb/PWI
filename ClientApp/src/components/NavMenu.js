@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { CloudDownloadRounded, VideogameAssetRounded, CloudRounded } from '@material-ui/icons';
 import LangSelect from './LangSelect';
 import { translate } from 'react-multi-lang';
+import LoginButton from './LoginButton';
 var avatar = require("./../assets/avatar.jpg");
 const styles = {
   avatar: {
@@ -77,7 +78,7 @@ class NavMenu extends React.Component {
       <Media query="(max-width: 600px)">
       {matches => matches ? ( //MOBILE
       <div>
-      <AppBar position="static" style={{marginBottom: 15}}>
+      <AppBar position="sticky" style={{marginBottom: 15}}>
         <Toolbar variant="dense" style={{top: 3}}>
         {/* <IconButton
             color="inherit"
@@ -98,7 +99,7 @@ class NavMenu extends React.Component {
           {/* <div style={{marginLeft: 8, marginTop: -10}}>
             <FBLoginButton/>
           </div> */}
-          <Button variant="outlined" color="inherit" style={{marginLeft: 8}} onClick={()=>this.props.history.push("/login")}>login</Button>
+          <LoginButton/>
         </Toolbar>
       </AppBar>
       {/* <SwipeableDrawer className={classes.drawer} classes={{paper: classes.drawerPaper}} open={this.state.isDrawerOpen} onClose={()=>this.toggleDrawer(false)} onOpen={()=>this.toggleDrawer(true)}>
@@ -131,7 +132,7 @@ class NavMenu extends React.Component {
       {/* TODO: fix this swipeableDrawer */}
       </div>
       ) : (//DESKTOP
-      <AppBar position="static" style={{marginBottom: 15}}>
+      <AppBar position="sticky" style={{marginBottom: 15}}>
         <Toolbar variant="dense" style={{top: 3}}>
           <Avatar alt="matyjb-avatar"src={avatar} className={classes.avatar} onClick={()=>this.props.history.push("/")}/>
           {menuItemsTranslated.map((menuItem, index) => (
@@ -148,7 +149,7 @@ class NavMenu extends React.Component {
           {/* <div style={{marginLeft: 8, marginTop: -10}}>
             <FBLoginButton/>
           </div> */}
-          <Button variant="outlined" color="inherit" style={{marginLeft: 8}} onClick={()=>this.props.history.push("/login")}>login</Button>
+          <LoginButton/>
         </Toolbar>
       </AppBar>
       )}

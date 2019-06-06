@@ -30,5 +30,45 @@
   "sourceCode":{
     "seeOnGithub": "See code on Github",
     "downloadZip": "Download .zip"
+  },
+  "loginPage":{
+    "email": "E-mail",
+    "password": "Password",
+    "login": "Login",
+    "noAccount": "No account?",
+    "register": "Register",
+    "forgotPass": "Forgot password"
+  },
+  "loginButton": {
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "registerPage":{
+    "firstNoNumber": "Do not start with a number",
+    "emailFormat": "E-mail format correct",
+    "passwordReq": "min: 1 number, 1 letter, 1 special, 8 characters.",
+    "passwordsEq": "Passwords match",
+    "register": "Register",
+    "username": "Username",
+    "email": "E-mail",
+    "password": "Password",
+    "cpassword": "Confirm password"
+  },
+  "forgotPassPage":{
+    "email":"E-mail",
+    "username": "Username",
+    "forgot": "Recover",
+    "yourPass": "Your password"
+  },
+  "cookies":{
+    "text": "This website uses cookies to enhance the user experience."
+  },
+  "homePage": {
+    "projects": "Projects",
+    "blog": "Blog",
+    "gkTitle": "Computer graphics",
+    "opsuTitle": "Opsu auto mod",
+    "gkDesc": "Zadanie polegało na zaimplementowanie silnika graficznego, który bedzie rysowyał bryły wraz z odpowiednim cieniowanie. Program ma też możliwość poruszanie się kamerą w stylu gier FPS.",
+    "opsuDesc": "Jest to zmodyfikowana gra Opsu! do której napisałem bota, który porusza sie w smukły sposób. Można go zobaczyć w akcji tu https://www.youtube.com/watch?v=l8xVOfPFWv8"
   }
 }
