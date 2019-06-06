@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Paper, Typography, Divider, TextField, Grid, Button} from "@material-ui/core";
+import { Paper, Typography, Divider, TextField, Grid, Button, LinearProgress} from "@material-ui/core";
 import { CheckCircleOutlineRounded, HighlightOffRounded } from '@material-ui/icons';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -32,7 +32,8 @@ class RegisterPage extends Component {
       password: null,
       cpassword: null,
       api: null,
-    }
+    },
+    isSubmiting: false,
   }
   componentDidMount(){
     this.validate("username");
@@ -85,6 +86,11 @@ class RegisterPage extends Component {
       this.props.setLogin(content);
       this.props.history.push("/");
     }
+    this.setState({isSubmiting: false});
+  }
+  handleSubmit = async () => {
+    this.setState({isSubmiting: true});
+    await this.submit();
   }
   render() {
     const {t} = this.props;
@@ -185,7 +191,8 @@ class RegisterPage extends Component {
           </Grid>
         </Grid>
         <Divider style={styles.divider}/>
-        <Button color="primary" onClick={this.submit}>{t("registerPage.register")}</Button>
+        <Button color="primary" onClick={this.handleSubmit}>{t("registerPage.register")}</Button>
+        {this.state.isSubmiting && <LinearProgress />}
       </Paper>
     )
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Paper, Typography, Divider, TextField, Grid, Button} from "@material-ui/core";
+import { Paper, Typography, Divider, TextField, Grid, Button, LinearProgress} from "@material-ui/core";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actionCreators } from '../store/Login';
@@ -33,6 +33,10 @@ class LoginPage extends Component {
       this.props.history.push("/");
     }
   }
+  handleSubmit = async () => {
+    this.setState({isSubmiting: true});
+    await this.submit();
+  }
 
   submit = async () => {
     //TODO: validation
@@ -52,6 +56,7 @@ class LoginPage extends Component {
       this.props.setLogin(content);
       this.props.history.push("/");
     }
+    this.setState({isSubmiting: false});
   }
   handleChange = name => event => {
     this.setState({[name]: event.target.value});
@@ -94,7 +99,8 @@ class LoginPage extends Component {
           </Grid>
         </Grid>
         <Divider style={styles.divider}/>
-        <Button color="primary" onClick={this.submit}>{t("loginPage.login")}</Button>
+        <Button color="primary" onClick={this.handleSubmit}>{t("loginPage.login")}</Button>
+        {this.state.isSubmiting && <LinearProgress />}
         <Divider style={styles.divider}/>
         <Grid container direction="column">
           <Grid item>
