@@ -39,6 +39,11 @@ class RegisterPage extends Component {
     this.validate("email");
     this.validate("password");
   }
+  componentDidUpdate(){
+    if(this.props.login.id !== ""){
+      this.props.history.push("/");
+    }
+  }
   handleChange = name => event => {
     this.setState({[name]: event.target.value}, ()=>this.validate(name));
   };

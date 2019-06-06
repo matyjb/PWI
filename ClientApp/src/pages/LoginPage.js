@@ -17,18 +17,6 @@ var styles={
   divider:{
     margin: "5px 0px",
   }
-  // input:{
-    
-  // },
-  // email:{
-
-  // },
-  // username:{
-
-  // },
-  // password:{
-
-  // }
 }
 
 class LoginPage extends Component {
@@ -38,6 +26,11 @@ class LoginPage extends Component {
     error:{
       email: null,
       password: null,
+    }
+  }
+  componentDidUpdate(){
+    if(this.props.login.id !== ""){
+      this.props.history.push("/");
     }
   }
 
