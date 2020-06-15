@@ -25,16 +25,16 @@ class HomePage extends Component {
   }
   componentDidMount() {
     // This method is called when the component is first added to the document
-    this.fetchBlogPosts();
+    // this.fetchBlogPosts();
   }
 
-  async fetchBlogPosts() {
-    const url = `https://matyjbpwi.azurewebsites.net/api/Blog/all`;
-    const response = await fetch(url);
-    const posts = await response.json();
-    this.setState({posts: posts});
-    this.setState({isBlogLoading: false});
-  }
+  // async fetchBlogPosts() {
+  //   const url = `https://matyjbpwi.azurewebsites.net/api/Blog/all`;
+  //   const response = await fetch(url);
+  //   const posts = await response.json();
+  //   this.setState({posts: posts});
+  //   this.setState({isBlogLoading: false});
+  // }
   render() {
     const {t} = this.props;
     return (
@@ -61,7 +61,7 @@ class HomePage extends Component {
         <Project image={opsuimg} githubLink="https://github.com/matyjb/opsu" description={t("homePage.opsuDesc")} title={t("homePage.opsuTitle")}></Project>
         <Project image={GKimg} githubLink="https://github.com/matyjb/GK-3D" description={t("homePage.gkDesc")} title={t("homePage.gkTitle")}></Project>
         
-        <Typography variant="h2" style={{marginTop: 20}}>{t("homePage.blog")}</Typography>
+        {/* <Typography variant="h2" style={{marginTop: 20}}>{t("homePage.blog")}</Typography>
         {this.state.isBlogLoading ? 
           <LinearProgress />
         :
@@ -72,7 +72,7 @@ class HomePage extends Component {
               </BlogPost>
             ))}
           </div>
-      }
+        } */}
       </div>
     )
   }

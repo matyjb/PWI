@@ -49,10 +49,10 @@ export default () => (
           <Route exact path="/" component={HomePage}/>
           <Route path="/tictactoe" exact component={TicTacToePage} />
           <Route path="/source" exact component={SourceCodePage} />
-          <Route path="/weather" exact component={WeatherForecastPage} />
+          {/* <Route path="/weather" exact component={WeatherForecastPage} />
           <Route path="/login" exact component={LoginPage} />
           <Route path="/register" exact component={RegisterPage} />
-          <Route path="/forgot" exact component={ForgotPassPage} />
+          <Route path="/forgot" exact component={ForgotPassPage} /> */}
           <Redirect to="/" />
         </Switch>
       </Layout>

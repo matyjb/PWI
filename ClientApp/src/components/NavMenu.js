@@ -50,11 +50,11 @@ const menuItems = [
     link: "/source",
     icon: <CloudDownloadRounded />
   },
-  {
-    title: "navMenu.weather",
-    link: "/weather",
-    icon: <CloudRounded />
-  },
+  // {
+  //   title: "navMenu.weather",
+  //   link: "/weather",
+  //   icon: <CloudRounded />
+  // },
 ]
 
 class NavMenu extends React.Component {
@@ -99,7 +99,7 @@ class NavMenu extends React.Component {
           {/* <div style={{marginLeft: 8, marginTop: -10}}>
             <FBLoginButton/>
           </div> */}
-          <LoginButton/>
+          {/* <LoginButton/> */}
         </Toolbar>
       </AppBar>
       {/* <SwipeableDrawer className={classes.drawer} classes={{paper: classes.drawerPaper}} open={this.state.isDrawerOpen} onClose={()=>this.toggleDrawer(false)} onOpen={()=>this.toggleDrawer(true)}>
@@ -149,7 +149,7 @@ class NavMenu extends React.Component {
           {/* <div style={{marginLeft: 8, marginTop: -10}}>
             <FBLoginButton/>
           </div> */}
-          <LoginButton/>
+          {/* <LoginButton/> */}
         </Toolbar>
       </AppBar>
       )}
